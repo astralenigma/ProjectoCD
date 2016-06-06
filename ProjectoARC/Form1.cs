@@ -24,10 +24,7 @@ namespace ProjectoARC
             //Aqui ele envia a informação do utilizador.
             try
             {
-                oPC.enviarMensagem(textBox1.Text + " " + textBox2.Text);
-                //Aqui ele recebe a resposta não quer dizer que ele goste dela.
-                mensagens(oPC.receberMensagem());
-                //Apagar o input e mostrar o resultado.
+                
                 limparCampos();
                 toggleVisibilidade();
             }
@@ -61,7 +58,10 @@ namespace ProjectoARC
             try
             {
                 clientSocket.Connect(textBox3.Text, PORTASCV);
-                ficheiro = oPC.receberMensagem();
+                oPC.enviarMensagem(textBox1.Text + " " + textBox2.Text);
+                //Aqui ele recebe a resposta não quer dizer que ele goste dela.
+                mensagens(oPC.receberMensagem());
+                //Apagar o input e mostrar o resultado.
                 //inicializacaoDosPartidos(nmrPartidos);
                 toggleVisibilidade();
             }
@@ -111,6 +111,7 @@ namespace ProjectoARC
                     MessageBox.Show("Já votou.", "Mensagem de erro", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     break;
                 case "3":
+                    label3.Text = oPC.receberMensagem();
                     MessageBox.Show("Votação bem sucedida.", "Mensagem de Sucesso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     break;
                 case "4":

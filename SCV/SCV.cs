@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Data.SqlClient;
 
 namespace SCV
 {
@@ -36,14 +37,23 @@ namespace SCV
         }
         private ProcessosComunicacao oPC;
         private Socket serverSocket;
-        private String fileName;
+        private static String fileName;
         const int PORTASRE = 6000;
         const int PORTATRV = 8888;
-
+        static SqlConnection cn;
         public SCV(String fileName,Chart chart)
         {
-            this.fileName = fileName;
+            SCV.fileName = fileName;
+            cn = new SqlConnection("Data Source=ASTRAL-WORK-PC;Initial Catalog=Votos;Integrated Security=True;Pooling=False");
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("Select * from Utilizador", cn);
+            SqlDataReader dr = cmd.ExecuteReader();
             nmrVotosBrancos = 0;
+            while (dr.Read())
+            {
+                nmrVotosBrancos++;
+            }
+            dr.Close();
             votosAprovados = 0;
             votosReprovados = 0;
         }
@@ -125,7 +135,7 @@ namespace SCV
                 handleTRV client = new handleTRV();//Classe criada só para funcionar com o código do qual não entendo nada, acho piada o facto de já ter alterado o código tanto que já nem deve de fazer a mesma coisa.
                 Socket cliSock = serverSocket.Accept();
                 ProcessosComunicacao cliPC = new ProcessosComunicacao(cliSock);//Eu fiz esta classe muito mais robusta do que pensava.
-                cliPC.enviarMensagem(fileName);
+                
                 client.startClient(cliPC);//Loucura de código. Loucura mesmo já me obrigou a trocar de lugares e tudo 2X ou pelo menos é a segunda que me lembro.
                 Console.WriteLine("Cliente recebido.");
             }
@@ -148,15 +158,21 @@ namespace SCV
 
             private void doVoto()
             {
-
-                //Boolean erro = false;
+               
                 try
                 {
+                    bool varLogin = false;
                     do
                     {
-                        String[] mensagem = cliPC.receberMensagem().Split(' ');
+                        varLogin = login();
+                    } while (!varLogin);
+                    Console.WriteLine("Login bem sucedido.");
+                    cliPC.enviarMensagem(fileName);
+                    do
+                    {
+                        
                         //ESTÁ TUDO A FUNCIONAR MAS NÃO ME CULPES A MIM.
-                        incrementarVoto(Convert.ToInt32(mensagem));
+                        incrementarVoto(Convert.ToInt32(cliPC.receberMensagem()));
                         cliPC.enviarMensagem("3");
                         //return false;
                         //srePC.enviarMensagem(mensagem[0]);
@@ -181,6 +197,24 @@ namespace SCV
                     }
 
                 }
+            }
+
+            private Boolean login()
+            {
+                String[] mensagem = cliPC.receberMensagem().Split(' ');
+
+                SqlCommand cmd = new SqlCommand("Select * from Utilizador where Nome='" + mensagem[0] + "' and Pass='" + mensagem[1] + "'", cn);
+                SqlDataReader dr = cmd.ExecuteReader();
+                int count = 0;
+                while (dr.Read())
+                {
+                    count++;
+                }
+                if (count == 1)
+                {
+                    return true;
+                }
+                return false;
             }
 
             //private bool accaoDependeSRE(string respostaSRE,string mensagem)
