@@ -84,6 +84,7 @@ namespace ProjectoARC
         {
             label3.Visible = !label3.Visible;
             button1.Visible = !button1.Visible;
+            button2.Visible = !button2.Visible;
             comboBox1.Visible = !comboBox1.Visible;
             textBox1.Visible = !textBox1.Visible;
             label1.Visible = !label1.Visible;
