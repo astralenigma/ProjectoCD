@@ -1,0 +1,1 @@
+﻿Insert into Utilizador(Nome,Pass) values ('Ze','140221057'),('Rui','110221039'),('Igor','140221069'),('Joao','140221104');
