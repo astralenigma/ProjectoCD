@@ -167,13 +167,14 @@ namespace SCV
                         varLogin = login();
                     } while (!varLogin);
                     Console.WriteLine("Login bem sucedido.");
+                    cliPC.enviarMensagem("3");
                     cliPC.enviarMensagem(fileName);
                     do
                     {
                         
                         //ESTÁ TUDO A FUNCIONAR MAS NÃO ME CULPES A MIM.
                         incrementarVoto(Convert.ToInt32(cliPC.receberMensagem()));
-                        cliPC.enviarMensagem("3");
+                        
                         //return false;
                         //srePC.enviarMensagem(mensagem[0]);
                         ///*erro =*/ accaoDependeSRE(srePC.receberMensagem(),mensagem[1]);

@@ -44,6 +44,7 @@ namespace SCV
                 //Os TRVs são aceites.
                 Thread aceitar = new Thread(oSCV.aceitarTRVs);
                 aceitar.Start();
+                Start.Visible = !Start.Visible;
             }
         }
 
