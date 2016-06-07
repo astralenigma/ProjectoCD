@@ -81,6 +81,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\ProjectoARC.Form1.datasource" />
+    <None Include="Properties\DataSources\ProjectoARC.Program.datasource" />
+    <None Include="Properties\DataSources\TRV.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\TRV.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

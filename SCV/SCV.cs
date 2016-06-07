@@ -41,7 +41,7 @@ namespace SCV
         const int PORTASRE = 6000;
         const int PORTATRV = 8888;
         static SqlConnection cn;
-        public SCV(String fileName,Chart chart)
+        public SCV(String fileName)
         {
             SCV.fileName = fileName;
             cn = new SqlConnection("Data Source=ASTRAL-WORK-PC;Initial Catalog=Votos;Integrated Security=True;Pooling=False");

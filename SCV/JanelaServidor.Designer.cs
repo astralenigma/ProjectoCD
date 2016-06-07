@@ -28,16 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.Start = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.carregar = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.porVotar = new System.Windows.Forms.Label();
+            this.reprovados = new System.Windows.Forms.Label();
+            this.aprovados = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Start
@@ -81,36 +79,47 @@
             this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 4;
             // 
-            // chart1
+            // label8
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 12);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(428, 220);
-            this.chart1.TabIndex = 5;
-            this.chart1.Text = "chart1";
-            this.chart1.Visible = false;
+            this.porVotar.AutoSize = true;
+            this.porVotar.Location = new System.Drawing.Point(269, 139);
+            this.porVotar.Name = "label8";
+            this.porVotar.Size = new System.Drawing.Size(80, 13);
+            this.porVotar.TabIndex = 17;
+            this.porVotar.Text = "Não votaram=0";
+            // 
+            // label7
+            // 
+            this.reprovados.AutoSize = true;
+            this.reprovados.Location = new System.Drawing.Point(175, 139);
+            this.reprovados.Name = "label7";
+            this.reprovados.Size = new System.Drawing.Size(77, 13);
+            this.reprovados.TabIndex = 16;
+            this.reprovados.Text = "Reprovados=0";
+            // 
+            // label6
+            // 
+            this.aprovados.AutoSize = true;
+            this.aprovados.Location = new System.Drawing.Point(91, 139);
+            this.aprovados.Name = "label6";
+            this.aprovados.Size = new System.Drawing.Size(70, 13);
+            this.aprovados.TabIndex = 15;
+            this.aprovados.Text = "Aprovados=0";
             // 
             // JanelaServidor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 291);
+            this.Controls.Add(this.porVotar);
+            this.Controls.Add(this.reprovados);
+            this.Controls.Add(this.aprovados);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.carregar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Start);
-            this.Controls.Add(this.chart1);
             this.Name = "JanelaServidor";
             this.Text = "JanelaServidor";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,6 +132,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button carregar;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label aprovados;
+        private System.Windows.Forms.Label reprovados;
+        private System.Windows.Forms.Label porVotar;
     }
 }

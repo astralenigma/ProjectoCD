@@ -9,7 +9,6 @@ namespace ProjectoARC
         Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         ProcessosComunicacao oPC;
         const int PORTASCV = 8888;
-        String ficheiro = "";
         public Form1()
         {
             InitializeComponent();
@@ -112,7 +111,7 @@ namespace ProjectoARC
                     break;
                 case "3":
                     label3.Text = oPC.receberMensagem();
-                    MessageBox.Show("Votação bem sucedida.", "Mensagem de Sucesso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                    MessageBox.Show("Login bem sucedido.", "Mensagem de Sucesso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                     break;
                 case "4":
                     MessageBox.Show("Perdeu-se a ligação com o SRE por favor contacte o administrador.", "Mensagem de erro", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);

@@ -39,7 +39,7 @@ namespace SCV
                 //Ligações dos TRVs
                 //O iniciado o servidor para ouvir os TRVs.
                 toggleVisibility();
-                oSCV = new SCV(fileName,chart1);
+                oSCV = new SCV(fileName);
                 oSCV.esperandoPorUmTRV();
                 //Os TRVs são aceites.
                 Thread aceitar = new Thread(oSCV.aceitarTRVs);
@@ -50,7 +50,6 @@ namespace SCV
 
         private void toggleVisibility()
         {
-            chart1.Visible = !chart1.Visible;
             textBox1.Visible = !textBox1.Visible;
             carregar.Visible = !carregar.Visible;
             label1.Visible = !label1.Visible;
