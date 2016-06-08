@@ -165,6 +165,10 @@ namespace SCV
                     do
                     {
                         varLogin = login();
+                        if (!varLogin)
+                        {
+                            cliPC.enviarMensagem("1");
+                        }
                     } while (!varLogin);
                     Console.WriteLine("Login bem sucedido.");
                     cliPC.enviarMensagem("3");
