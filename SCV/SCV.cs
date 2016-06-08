@@ -215,6 +215,7 @@ namespace SCV
                 {
                     count++;
                 }
+                dr.Close();
                 if (count == 1)
                 {
                     return true;

@@ -98,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 98);
+            this.label3.Location = new System.Drawing.Point(70, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 6;
@@ -155,6 +155,7 @@
             this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Aprovados=0";
+            this.label6.Visible = false;
             // 
             // label7
             // 
@@ -164,6 +165,7 @@
             this.label7.Size = new System.Drawing.Size(77, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Reprovados=0";
+            this.label7.Visible = false;
             // 
             // label8
             // 
@@ -173,6 +175,7 @@
             this.label8.Size = new System.Drawing.Size(80, 13);
             this.label8.TabIndex = 14;
             this.label8.Text = "Não votaram=0";
+            this.label8.Visible = false;
             // 
             // Form1
             // 

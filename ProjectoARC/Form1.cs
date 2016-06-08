@@ -56,7 +56,10 @@ namespace ProjectoARC
 
             try
             {
-                clientSocket.Connect(textBox3.Text, PORTASCV);
+                if (!clientSocket.Connected)
+                {
+                    clientSocket.Connect(textBox3.Text, PORTASCV);
+                }
                 oPC.enviarMensagem(textBox1.Text + " " + textBox2.Text);
                 //Aqui ele recebe a resposta não quer dizer que ele goste dela.
                 mensagens(oPC.receberMensagem());
