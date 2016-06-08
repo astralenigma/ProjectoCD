@@ -35,12 +35,12 @@ namespace BibliotecaDeClasses
         {
             byte[] data = new byte[1024];
             data = Encoding.ASCII.GetBytes(mensagem);
-            socket.Send(data);
+                socket.Send(data);
             return mensagem;
         }
 
         /// <summary>
-        /// Método para receber mensagens. Recomendado ser corrido num thread paralela.
+        /// Método para receber mensagens. Recomendado ser corrido num thread paralela, uso questionável.
         /// </summary>
         public void receberMensagens()
         {
