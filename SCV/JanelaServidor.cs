@@ -57,5 +57,7 @@ namespace SCV
             reprovados.Visible = !reprovados.Visible;
             porVotar.Visible = !porVotar.Visible;
         }
+
+        
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace SCV
 {
@@ -36,7 +37,7 @@ namespace SCV
             get { return SCV.votosReprovados; }
             set { SCV.votosReprovados = value; }
         }
-        private ProcessosComunicacao oPC;
+        ////private ProcessosComunicacao oPC;
         private Socket serverSocket;
         private static String fileName;
         const int PORTASRE = 6000;
@@ -46,6 +47,7 @@ namespace SCV
         static Label aprovadosL;
         static Label reprovadosL;
         static Label nvL;
+        delegate void SetTextCallback();
         public SCV(String fileName, Label aprovadosL, Label reprovadosL, Label nvL)
         {
             SCV.fileName = fileName;
@@ -64,8 +66,9 @@ namespace SCV
             dr.Close();
             votosAprovados = 0;
             votosReprovados = 0;
+            actualizarResultados();
         }
-
+        
         //Método para estabelecer ligacao ao SRE.
         //private static void estabelecerLigacaoSRE()
         //{
@@ -116,13 +119,8 @@ namespace SCV
             {
                 VotosReprovados++;
             }
+            NmrVotosBrancos--;
             actualizarResultados();
-        }
-
-        //Método de incrementação de votos em branco.
-        private void incrementarVotoBranco()
-        {
-            NmrVotosBrancos++;
         }
 
 
@@ -148,12 +146,49 @@ namespace SCV
                 Console.WriteLine("Cliente recebido.");
             }
         }
+        #region ActualizarResultados
         private static void actualizarResultados()
         {
-            aprovadosL.Text = "Aprovar=" + VotosAprovados;
-            reprovadosL.Text = "Reprovar=" + VotosReprovados;
-            nvL.Text = "Não Votaram=" + nmrVotosBrancos;
+            SetAprovados();
+            SetReprovados();
+            SetNVL();
         }
+
+        private static void SetAprovados()
+        {
+            if (aprovadosL.InvokeRequired)
+            {
+                aprovadosL.Invoke(new MethodInvoker(delegate { aprovadosL.Text = "Aprovar=" + VotosAprovados; }));
+            }
+            else
+            {
+                aprovadosL.Text = "Aprovar=" + VotosAprovados;
+            }
+        }
+        private static void SetReprovados()
+        {
+            if (reprovadosL.InvokeRequired)
+            {
+                reprovadosL.Invoke(new MethodInvoker(delegate { reprovadosL.Text = "Reprovar=" + VotosReprovados; }));
+            }
+            else
+            {
+                reprovadosL.Text = "Reprovar=" + VotosReprovados;
+            }
+        }
+        private static void SetNVL()
+        {
+            if (nvL.InvokeRequired)
+            {
+                nvL.Invoke(new MethodInvoker(delegate { nvL.Text = "Não Votaram=" + NmrVotosBrancos; }));
+            }
+            else
+            {
+                nvL.Text = "Não Votaram=" + NmrVotosBrancos;
+            }
+        }
+
+        #endregion
         //Classe das operações do TRV.
         private class handleTRV
         {
@@ -171,7 +206,6 @@ namespace SCV
 
             private void doVoto()
             {
-
                 try
                 {
                     bool varLogin = false;
@@ -195,8 +229,6 @@ namespace SCV
                     //return false;
                     //srePC.enviarMensagem(mensagem[0]);
                     ///*erro =*/ accaoDependeSRE(srePC.receberMensagem(),mensagem[1]);
-
-
                 }
                 catch (TRVCaiuException)
                 {

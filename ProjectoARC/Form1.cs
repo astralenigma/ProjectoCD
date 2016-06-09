@@ -11,7 +11,6 @@ namespace ProjectoARC
         Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         ProcessosComunicacao oPC;
         const int PORTASCV = 8888;
-        BackgroundWorker bckgw;
         public Form1()
         {
             InitializeComponent();
@@ -22,14 +21,14 @@ namespace ProjectoARC
         private void button1_Click(object sender, EventArgs e)
         {
             //Código onde recebe o voto escolhido.
-            if (comboBox1.SelectedText.CompareTo("")==0)
+            if (comboBox1.Text.CompareTo("") == 0)
             {
                 return;
             }
             //Aqui ele envia a informação do utilizador.
             try
             {
-                if (comboBox1.SelectedText.CompareTo("Aprovado")==0)
+                if (comboBox1.Text.CompareTo("Aprovado") == 0)
                 {
                     oPC.enviarMensagem("1");
                 }
@@ -103,9 +102,9 @@ namespace ProjectoARC
             label2.Visible = !label2.Visible;
             label4.Visible = !label4.Visible;
             textBox2.Visible = !textBox2.Visible;
-            label8.Visible = !label8.Visible;
-            label6.Visible = !label6.Visible;
-            label7.Visible = !label7.Visible;
+            nvL.Visible = !nvL.Visible;
+            aprovadosL.Visible = !aprovadosL.Visible;
+            reprovadosL.Visible = !reprovadosL.Visible;
             label5.Visible = !label5.Visible;
             textBox3.Visible = !textBox3.Visible;
         }
@@ -167,11 +166,44 @@ namespace ProjectoARC
         private void actualizarResultados(String mensagem)
         {
             String[] resultados = mensagem.Split(' ');
-            label6.Text = "Aprovar=" + resultados[0];
-
-            label7.Text = "Reprovar=" + resultados[1];
-
-            label8.Text = "Não Votaram=" + resultados[2];
+            SetAprovados(resultados[0]);
+            SetReprovados(resultados[1]);
+            SetNVL(resultados[2]);
         }
+
+        private void SetAprovados(string mensagem)
+        {
+            if (aprovadosL.InvokeRequired)
+            {
+                aprovadosL.Invoke(new MethodInvoker(delegate { aprovadosL.Text = "Aprovar=" + mensagem; }));
+            }
+            else
+            {
+                aprovadosL.Text = "Aprovar=" + mensagem;
+            }
+        }
+        private void SetReprovados(string mensagem)
+        {
+            if (reprovadosL.InvokeRequired)
+            {
+                reprovadosL.Invoke(new MethodInvoker(delegate { reprovadosL.Text = "Reprovar=" + mensagem; }));
+            }
+            else
+            {
+                reprovadosL.Text = "Reprovar=" + mensagem;
+            }
+        }
+        private void SetNVL(string mensagem)
+        {
+            if (nvL.InvokeRequired)
+            {
+                nvL.Invoke(new MethodInvoker(delegate { nvL.Text = "Não Votaram=" + mensagem; }));
+            }
+            else
+            {
+                nvL.Text = "Não Votaram=" + mensagem;
+            }
+        }
+
     }
 }

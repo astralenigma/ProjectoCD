@@ -39,9 +39,9 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.aprovadosL = new System.Windows.Forms.Label();
+            this.reprovadosL = new System.Windows.Forms.Label();
+            this.nvL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -149,42 +149,42 @@
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(92, 175);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Aprovados=0";
-            this.label6.Visible = false;
+            this.aprovadosL.AutoSize = true;
+            this.aprovadosL.Location = new System.Drawing.Point(92, 175);
+            this.aprovadosL.Name = "label6";
+            this.aprovadosL.Size = new System.Drawing.Size(70, 13);
+            this.aprovadosL.TabIndex = 12;
+            this.aprovadosL.Text = "Aprovados=0";
+            this.aprovadosL.Visible = false;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(176, 175);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Reprovados=0";
-            this.label7.Visible = false;
+            this.reprovadosL.AutoSize = true;
+            this.reprovadosL.Location = new System.Drawing.Point(176, 175);
+            this.reprovadosL.Name = "label7";
+            this.reprovadosL.Size = new System.Drawing.Size(77, 13);
+            this.reprovadosL.TabIndex = 13;
+            this.reprovadosL.Text = "Reprovados=0";
+            this.reprovadosL.Visible = false;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(270, 175);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(80, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Não votaram=0";
-            this.label8.Visible = false;
+            this.nvL.AutoSize = true;
+            this.nvL.Location = new System.Drawing.Point(270, 175);
+            this.nvL.Name = "label8";
+            this.nvL.Size = new System.Drawing.Size(80, 13);
+            this.nvL.TabIndex = 14;
+            this.nvL.Text = "Não votaram=0";
+            this.nvL.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 313);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.nvL);
+            this.Controls.Add(this.reprovadosL);
+            this.Controls.Add(this.aprovadosL);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label4);
@@ -218,9 +218,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label aprovadosL;
+        private System.Windows.Forms.Label reprovadosL;
+        private System.Windows.Forms.Label nvL;
     }
 }
 
