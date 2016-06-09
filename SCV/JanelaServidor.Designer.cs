@@ -79,32 +79,35 @@
             this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 4;
             // 
-            // label8
+            // porVotar
             // 
             this.porVotar.AutoSize = true;
             this.porVotar.Location = new System.Drawing.Point(269, 139);
-            this.porVotar.Name = "label8";
+            this.porVotar.Name = "porVotar";
             this.porVotar.Size = new System.Drawing.Size(80, 13);
             this.porVotar.TabIndex = 17;
             this.porVotar.Text = "Não votaram=0";
+            this.porVotar.Visible = false;
             // 
-            // label7
+            // reprovados
             // 
             this.reprovados.AutoSize = true;
             this.reprovados.Location = new System.Drawing.Point(175, 139);
-            this.reprovados.Name = "label7";
+            this.reprovados.Name = "reprovados";
             this.reprovados.Size = new System.Drawing.Size(77, 13);
             this.reprovados.TabIndex = 16;
             this.reprovados.Text = "Reprovados=0";
+            this.reprovados.Visible = false;
             // 
-            // label6
+            // aprovados
             // 
             this.aprovados.AutoSize = true;
             this.aprovados.Location = new System.Drawing.Point(91, 139);
-            this.aprovados.Name = "label6";
+            this.aprovados.Name = "aprovados";
             this.aprovados.Size = new System.Drawing.Size(70, 13);
             this.aprovados.TabIndex = 15;
             this.aprovados.Text = "Aprovados=0";
+            this.aprovados.Visible = false;
             // 
             // JanelaServidor
             // 

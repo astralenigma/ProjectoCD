@@ -39,7 +39,7 @@ namespace SCV
                 //Ligações dos TRVs
                 //O iniciado o servidor para ouvir os TRVs.
                 toggleVisibility();
-                oSCV = new SCV(fileName);
+                oSCV = new SCV(fileName, aprovados, reprovados, porVotar);
                 oSCV.esperandoPorUmTRV();
                 //Os TRVs são aceites.
                 Thread aceitar = new Thread(oSCV.aceitarTRVs);
@@ -53,6 +53,9 @@ namespace SCV
             textBox1.Visible = !textBox1.Visible;
             carregar.Visible = !carregar.Visible;
             label1.Visible = !label1.Visible;
+            aprovados.Visible = !aprovados.Visible;
+            reprovados.Visible = !reprovados.Visible;
+            porVotar.Visible = !porVotar.Visible;
         }
     }
 }
