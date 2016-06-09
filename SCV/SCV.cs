@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace SCV
 {
@@ -41,9 +42,16 @@ namespace SCV
         const int PORTASRE = 6000;
         const int PORTATRV = 8888;
         static SqlConnection cn;
-        public SCV(String fileName)
+        //static event EventHandler variaveisAlteradas;
+        static Label aprovadosL;
+        static Label reprovadosL;
+        static Label nvL;
+        public SCV(String fileName, Label aprovadosL, Label reprovadosL, Label nvL)
         {
             SCV.fileName = fileName;
+            SCV.aprovadosL = aprovadosL;
+            SCV.reprovadosL = reprovadosL;
+            SCV.nvL = nvL;
             cn = new SqlConnection("Data Source=ASTRAL-WORK-PC;Initial Catalog=Votos;Integrated Security=True;Pooling=False");
             cn.Open();
             SqlCommand cmd = new SqlCommand("Select * from Utilizador", cn);
@@ -108,7 +116,7 @@ namespace SCV
             {
                 VotosReprovados++;
             }
-
+            actualizarResultados();
         }
 
         //Método de incrementação de votos em branco.
@@ -135,12 +143,17 @@ namespace SCV
                 handleTRV client = new handleTRV();//Classe criada só para funcionar com o código do qual não entendo nada, acho piada o facto de já ter alterado o código tanto que já nem deve de fazer a mesma coisa.
                 Socket cliSock = serverSocket.Accept();
                 ProcessosComunicacao cliPC = new ProcessosComunicacao(cliSock);//Eu fiz esta classe muito mais robusta do que pensava.
-                
+
                 client.startClient(cliPC);//Loucura de código. Loucura mesmo já me obrigou a trocar de lugares e tudo 2X ou pelo menos é a segunda que me lembro.
                 Console.WriteLine("Cliente recebido.");
             }
         }
-
+        private static void actualizarResultados()
+        {
+            aprovadosL.Text = "Aprovar=" + VotosAprovados;
+            reprovadosL.Text = "Reprovar=" + VotosReprovados;
+            nvL.Text = "Não Votaram=" + nmrVotosBrancos;
+        }
         //Classe das operações do TRV.
         private class handleTRV
         {
@@ -158,7 +171,7 @@ namespace SCV
 
             private void doVoto()
             {
-               
+
                 try
                 {
                     bool varLogin = false;
@@ -173,16 +186,16 @@ namespace SCV
                     Console.WriteLine("Login bem sucedido.");
                     cliPC.enviarMensagem("3");
                     cliPC.enviarMensagem(fileName);
-                    do
-                    {
-                        
-                        //ESTÁ TUDO A FUNCIONAR MAS NÃO ME CULPES A MIM.
-                        incrementarVoto(Convert.ToInt32(cliPC.receberMensagem()));
-                        
-                        //return false;
-                        //srePC.enviarMensagem(mensagem[0]);
-                        ///*erro =*/ accaoDependeSRE(srePC.receberMensagem(),mensagem[1]);
-                    } while (true);
+                    cliPC.receberMensagem();
+                    Thread erThread = new Thread(enviarResultados);
+                    erThread.Start();
+                    //ESTÁ TUDO A FUNCIONAR MAS NÃO ME CULPES A MIM.
+                    incrementarVoto(Convert.ToInt32(cliPC.receberMensagem()));
+                    enviarResultados();
+                    //return false;
+                    //srePC.enviarMensagem(mensagem[0]);
+                    ///*erro =*/ accaoDependeSRE(srePC.receberMensagem(),mensagem[1]);
+
 
                 }
                 catch (TRVCaiuException)
@@ -204,6 +217,23 @@ namespace SCV
                 }
             }
 
+            private void enviarResultados()
+            {
+                do
+                {
+                    cliPC.enviarMensagem(votosAprovados + " " + votosReprovados + " " + nmrVotosBrancos);
+                    Thread.Sleep(1000);
+                } while (cliPC.getSocket().Connected);
+            }
+            //protected virtual void OnVariaveisAlteradas(EventArgs e)
+            //{
+            //    EventHandler handler = variaveisAlteradas;
+            //    if (handler != null)
+            //    {
+            //        handler(this, e);
+            //    }
+            //    cliPC.enviarMensagem(votosAprovados + " " + votosReprovados + " " + nmrVotosBrancos);
+            //}
             private Boolean login()
             {
                 String[] mensagem = cliPC.receberMensagem().Split(' ');

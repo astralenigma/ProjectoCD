@@ -1,6 +1,8 @@
 ﻿using BibliotecaDeClasses;
 using System;
+using System.ComponentModel;
 using System.Net.Sockets;
+using System.Threading;
 using System.Windows.Forms;
 namespace ProjectoARC
 {
@@ -9,6 +11,7 @@ namespace ProjectoARC
         Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         ProcessosComunicacao oPC;
         const int PORTASCV = 8888;
+        BackgroundWorker bckgw;
         public Form1()
         {
             InitializeComponent();
@@ -19,13 +22,21 @@ namespace ProjectoARC
         private void button1_Click(object sender, EventArgs e)
         {
             //Código onde recebe o voto escolhido.
-
+            if (comboBox1.SelectedText.CompareTo("")==0)
+            {
+                return;
+            }
             //Aqui ele envia a informação do utilizador.
             try
             {
-
-                limparCampos();
-                toggleVisibilidade();
+                if (comboBox1.SelectedText.CompareTo("Aprovado")==0)
+                {
+                    oPC.enviarMensagem("1");
+                }
+                else
+                {
+                    oPC.enviarMensagem("0");
+                }
             }
             catch (SocketException ex)
             {
@@ -118,6 +129,9 @@ namespace ProjectoARC
                 case "3":
                     toggleVisibilidade();
                     label3.Text = oPC.receberMensagem();
+                    oPC.enviarMensagem("Ok");
+                    Thread arThread = new Thread(updateVar);
+                    arThread.Start();
                     MessageBox.Show("Login bem sucedido.", "Mensagem de Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     break;
                 case "4":
@@ -139,7 +153,7 @@ namespace ProjectoARC
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            oPC.getSocket().Close();
         }
 
         private void updateVar()
@@ -153,11 +167,11 @@ namespace ProjectoARC
         private void actualizarResultados(String mensagem)
         {
             String[] resultados = mensagem.Split(' ');
-            textBox1.Text = "Aprovar=" + resultados[0];
+            label6.Text = "Aprovar=" + resultados[0];
 
-            textBox2.Text = "Reprovar=" + resultados[1];
+            label7.Text = "Reprovar=" + resultados[1];
 
-            textBox3.Text = "Não Votaram=" + resultados[2];
+            label8.Text = "Não Votaram=" + resultados[2];
         }
     }
 }
