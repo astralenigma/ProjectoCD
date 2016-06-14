@@ -157,10 +157,17 @@ namespace ProjectoARC
 
         private void updateVar()
         {
-            do
+            try
             {
-                actualizarResultados(oPC.receberMensagem());
-            } while (clientSocket.Connected);
+                do
+                {
+                    actualizarResultados(oPC.receberMensagem());
+                } while (clientSocket.Connected);
+            }
+            catch (SocketException)
+            {
+
+            }
         }
 
         private void actualizarResultados(String mensagem)

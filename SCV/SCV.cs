@@ -216,7 +216,7 @@ namespace SCV
                         {
                             cliPC.enviarMensagem("1");
                         }
-                    } while (!varLogin);
+                    } while (!varLogin && cliPC.getSocket().Connected);
                     Console.WriteLine("Login bem sucedido.");
                     cliPC.enviarMensagem("3");
                     cliPC.enviarMensagem(fileName);
@@ -253,7 +253,15 @@ namespace SCV
             {
                 do
                 {
+                    try
+                    {
+                        
                     cliPC.enviarMensagem(votosAprovados + " " + votosReprovados + " " + nmrVotosBrancos);
+                    }
+                    catch (SocketException)
+                    {
+                        Console.WriteLine("Cliente desconectou.");
+                    }
                     Thread.Sleep(1000);
                 } while (cliPC.getSocket().Connected);
             }
@@ -269,7 +277,10 @@ namespace SCV
             private Boolean login()
             {
                 String[] mensagem = cliPC.receberMensagem().Split(' ');
-
+                if (mensagem[0].CompareTo("")==0 || mensagem[1].CompareTo("")==0)
+                {
+                    return false;
+                }
                 SqlCommand cmd = new SqlCommand("Select * from Utilizador where Nome='" + mensagem[0] + "' and Pass='" + mensagem[1] + "'", cn);
                 SqlDataReader dr = cmd.ExecuteReader();
                 int count = 0;

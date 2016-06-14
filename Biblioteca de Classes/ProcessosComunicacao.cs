@@ -11,8 +11,8 @@ namespace BibliotecaDeClasses
         /// Variável na qual a maior parte da magia é feita.
         /// </summary>
         Socket socket;
-        
-       public ProcessosComunicacao(Socket socket)
+
+        public ProcessosComunicacao(Socket socket)
         {
             this.socket = socket;
         }
@@ -35,7 +35,7 @@ namespace BibliotecaDeClasses
         {
             byte[] data = new byte[1024];
             data = Encoding.ASCII.GetBytes(mensagem);
-                socket.Send(data);
+            socket.Send(data);
             return mensagem;
         }
 
@@ -52,11 +52,19 @@ namespace BibliotecaDeClasses
 
         public String receberMensagem()
         {
-            byte[] data = new byte[1024];
-            socket.Receive(data);
-            string mensagemRecebida = Encoding.ASCII.GetString(data);
-            mensagemRecebida=mensagemRecebida.Replace("\0", "");
-            return mensagemRecebida;
+            try
+            {
+                byte[] data = new byte[1024];
+                socket.Receive(data);
+                string mensagemRecebida = Encoding.ASCII.GetString(data);
+                mensagemRecebida = mensagemRecebida.Replace("\0", "");
+                return mensagemRecebida;
+            }
+            catch (SocketException e)
+            {
+
+                throw e;
+            }
         }
         public void enviarFicheiro(String fileName)
         {
@@ -83,7 +91,7 @@ namespace BibliotecaDeClasses
         }
         public string getOwnIP()
         {
-            IPHostEntry host= Dns.GetHostEntry(Dns.GetHostName());
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             string localIP = "?";
             foreach (IPAddress ip in host.AddressList)
             {
