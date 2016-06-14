@@ -78,35 +78,35 @@ namespace SCV
         //}
 
         //Método porque PC é Rei, PC é Amor, PC é Deus.
-        ProcessosComunicacao iniciarPC(string ip)
-        {
-            try
-            {
-                return new ProcessosComunicacao(conectar(ip));
-            }
-            catch (SocketException ex)
-            {
-                if (ex.ErrorCode == 10061)
-                {
-                    Console.WriteLine("Conecção ao servidor recusada, pressione qualquer tecla para continuar ou 's' para sair ");
-                    if (Console.ReadKey(true).KeyChar.ToString().ToLower() == "s")
-                        Environment.Exit(0);
-                }
-                return iniciarPC(ip);
-            }
-        }
+        //ProcessosComunicacao iniciarPC(string ip)
+        //{
+        //    try
+        //    {
+        //        return new ProcessosComunicacao(conectar(ip));
+        //    }
+        //    catch (SocketException ex)
+        //    {
+        //        if (ex.ErrorCode == 10061)
+        //        {
+        //            Console.WriteLine("Conecção ao servidor recusada, pressione qualquer tecla para continuar ou 's' para sair ");
+        //            if (Console.ReadKey(true).KeyChar.ToString().ToLower() == "s")
+        //                Environment.Exit(0);
+        //        }
+        //        return iniciarPC(ip);
+        //    }
+        //}
 
         //Método de conecção com o SRE
-        Socket conectar(String ipStr)
-        {
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPAddress ipad = IPAddress.Parse(ipStr);
-            IPEndPoint ip = new IPEndPoint(ipad, PORTASRE);
+        //Socket conectar(String ipStr)
+        //{
+        //    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        //    IPAddress ipad = IPAddress.Parse(ipStr);
+        //    IPEndPoint ip = new IPEndPoint(ipad, PORTASRE);
 
-            socket.Connect(ip);
+        //    socket.Connect(ip);
 
-            return socket;
-        }
+        //    return socket;
+        //}
 
         //Método de incrementação de votos de partido
         static void incrementarVoto(int partido)
